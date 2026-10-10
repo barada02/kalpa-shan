@@ -156,7 +156,7 @@ input[type='range'] { width: 100%; accent-color: var(--accent); }
 .toggles label { display: flex; gap: 6px; align-items: center; }
 .toggles input { accent-color: var(--accent); }
 
-.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; grid-column: 1 / -1; }
 
 button {
   font: inherit;

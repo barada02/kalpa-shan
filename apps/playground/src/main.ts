@@ -6,7 +6,10 @@ import {
   type Distance,
   type LandscapeOptions,
   type PaletteName,
+  type Season,
   type SpacePreset,
+  type TimeOfDay,
+  type Weather,
 } from 'kalpa-shan'
 import './style.css'
 
@@ -16,6 +19,9 @@ const seedInput = $<HTMLInputElement>('seed')
 const paletteSelect = $<HTMLSelectElement>('palette')
 const distanceSelect = $<HTMLSelectElement>('distance')
 const spaceSelect = $<HTMLSelectElement>('space')
+const seasonSelect = $<HTMLSelectElement>('season')
+const weatherSelect = $<HTMLSelectElement>('weather')
+const timeSelect = $<HTMLSelectElement>('time')
 const aspectSelect = $<HTMLSelectElement>('aspect')
 const density = $<HTMLInputElement>('density')
 const densityOut = $<HTMLOutputElement>('densityOut')
@@ -34,13 +40,28 @@ for (const name of Object.keys(palettes)) paletteSelect.add(new Option(name, nam
 // Seed from the URL hash so paintings are shareable.
 seedInput.value = decodeURIComponent(location.hash.slice(1)) || randomSeed()
 
-const DEFAULTS: LandscapeOptions = { palette: 'sumi', distance: 'auto', space: 'none', density: 0.6, trees: true, water: true, grain: true, animate: false }
+const DEFAULTS: LandscapeOptions = {
+  palette: 'sumi',
+  distance: 'auto',
+  space: 'none',
+  season: 'summer',
+  weather: 'clear',
+  time: 'day',
+  density: 0.6,
+  trees: true,
+  water: true,
+  grain: true,
+  animate: false,
+}
 
 const read = (): LandscapeOptions => ({
   seed: seedInput.value || '0',
   palette: paletteSelect.value as PaletteName,
   distance: distanceSelect.value as Distance | 'auto',
   space: spaceSelect.value as SpacePreset,
+  season: seasonSelect.value as Season | 'auto',
+  weather: weatherSelect.value as Weather,
+  time: timeSelect.value as TimeOfDay | 'auto',
   density: Number(density.value),
   trees: trees.checked,
   water: water.checked,
