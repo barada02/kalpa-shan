@@ -3,6 +3,8 @@
 **Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website.**
 Hero backgrounds, headers and post covers, each one a unique painting from a seed.
 
+**[Try it live](https://barada02.github.io/kalpa-shan/)**: pick a seed, a palette and a composition, and copy the code.
+
 ![Kalpa Shan: a hero with space for text, and the three compositions](docs/preview.png)
 
 ## Why

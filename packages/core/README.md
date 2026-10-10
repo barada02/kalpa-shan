@@ -1,7 +1,7 @@
 # Kalpa Shan
 
 Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website: hero backgrounds, headers, covers and cards.
-Seeded, animated, dependency-free SVG, about 8 KB gzipped.
+Seeded, animated, dependency-free SVG, about 8 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
 
 ![Kalpa Shan: a hero with space for text, and the three compositions](https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png)
 
