@@ -30,6 +30,18 @@ export type Weather = 'clear' | 'rain' | 'snow' | 'fog'
 
 export type TimeOfDay = 'day' | 'dusk' | 'night'
 
+export type SealCorner = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+
+/** A red seal (印章) stamped in a corner. */
+export interface SealOptions {
+  /** 1–4 characters, e.g. initials or a name in Chinese. Read top to bottom, right column first. */
+  text: string
+  /** Default `'bottom-right'`. Moves to another corner if the text space is there. */
+  position?: SealCorner
+  /** `'intaglio'` (白文): white characters on red. `'relief'` (朱文): red characters in a red frame. Default `'intaglio'`. */
+  style?: 'intaglio' | 'relief'
+}
+
 /** A region kept clear for content, as fractions (0..1) of the drawing's width/height. */
 export interface SpaceBox {
   x: number
@@ -81,6 +93,8 @@ export interface LandscapeOptions {
   time?: TimeOfDay | 'auto'
   /** The moment `'auto'` season and time follow, in its local time zone. Default: now. */
   date?: Date | string | number
+  /** A red seal (印章) in a corner: its text, or full options. The same seal looks identical on every painting. */
+  seal?: string | SealOptions
   /**
    * Animate the painting (off by default). `true` enables reveal + ambient motion.
    * `createLandscape` turns it off for users who prefer reduced motion.

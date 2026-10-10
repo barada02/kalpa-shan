@@ -1,7 +1,7 @@
 # Kalpa Shan
 
 Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website: hero backgrounds, headers, covers and cards.
-Seeded, animated, dependency-free SVG, about 10 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
+Seeded, animated, dependency-free SVG, about 11 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
 
 ![Kalpa Shan: a hero with space for text, and the three compositions](https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png)
 
@@ -20,7 +20,7 @@ npm install kalpa-shan
 Or use it straight from a CDN, with no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.1/dist/kalpa-shan.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.3/dist/kalpa-shan.iife.js"></script>
 <kalpa-shan seed="hello" animate></kalpa-shan>
 ```
 
@@ -52,6 +52,9 @@ Content inside the element is placed in the empty space automatically. Size the 
 | `season` | `spring` · `summer` · `autumn` · `winter` · `auto` | `summer` |
 | `weather` | `clear` · `rain` · `snow` · `fog` | `clear` |
 | `time` | `day` · `dusk` · `night` · `auto` | `day` |
+| `seal` | 1–4 characters, e.g. `山水` or `KB` | none |
+| `seal-position` | `bottom-right` · `bottom-left` · `top-right` · `top-left` | `bottom-right` |
+| `seal-style` | `intaglio` (白文) · `relief` (朱文) | `intaglio` |
 | `label` | accessible description | "Generated Chinese ink landscape" |
 
 Changing an attribute redraws. Methods: `replay()`, `pause()`, `play()`, `toSVG()`.
@@ -97,6 +100,7 @@ The drawing fills the element and matches its aspect ratio (so `space` lines up 
 | `season` | `'spring' \| 'summer' \| 'autumn' \| 'winter' \| 'auto'` | `'summer'` |
 | `weather` | `'clear' \| 'rain' \| 'snow' \| 'fog'` | `'clear'` |
 | `time` | `'day' \| 'dusk' \| 'night' \| 'auto'` | `'day'` |
+| `seal` | `string \| { text, position?, style? }` | none |
 | `date` | `Date \| string \| number`: the moment `'auto'` follows | now |
 | `label` | `string` | "Generated Chinese ink landscape" |
 
@@ -138,6 +142,25 @@ createLandscape('#hero', { seed: 'home', season: 'auto', time: 'auto' }) // foll
 - `'auto'` reads the date when the painting is drawn, in the local time zone (northern-hemisphere seasons). Pass `date` to control it, for example when rendering on a server for visitors elsewhere. `seasonOf(date)` and `timeOf(date)` return what `'auto'` picks.
 - The SVG gets `data-season`, `data-weather` and `data-time` attributes for the options you set, so your page can match it (for example, light text at night).
 - With `space` at night, the veil behind your text shows as a pale cloud. That keeps dark text readable.
+
+### Seal (印章)
+
+Painters finish a work by pressing their red seal onto it. Give yours 1–4 characters: initials, a name, or a phrase in Chinese.
+
+```js
+createLandscape('#hero', { seed: 'home', seal: '山水' })
+createLandscape('#hero', { seal: { text: 'KB', style: 'relief', position: 'bottom-left' } })
+```
+
+```html
+<kalpa-shan seed="home" seal="山水" seal-style="relief"></kalpa-shan>
+```
+
+- `style`: `'intaglio'` (白文, white characters cut into a red block, the default) or `'relief'` (朱文, red characters in a red frame).
+- `position`: `'bottom-right'` (default), `'bottom-left'`, `'top-right'` or `'top-left'`. If your text space covers that corner, the seal moves to a free one.
+- Characters read top to bottom, right column first, as on a real seal.
+- **One seal, every painting.** Its uneven edges and worn specks come from the seal's text, not the painting's seed, so your seal looks the same everywhere, like a real stamp.
+- It uses the visitor's Kaiti or serif font, so characters render the way their system draws them.
 
 ### Animation
 

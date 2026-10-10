@@ -22,6 +22,8 @@ const spaceSelect = $<HTMLSelectElement>('space')
 const seasonSelect = $<HTMLSelectElement>('season')
 const weatherSelect = $<HTMLSelectElement>('weather')
 const timeSelect = $<HTMLSelectElement>('time')
+const sealInput = $<HTMLInputElement>('seal')
+const sealStyle = $<HTMLSelectElement>('sealStyle')
 const aspectSelect = $<HTMLSelectElement>('aspect')
 const density = $<HTMLInputElement>('density')
 const densityOut = $<HTMLOutputElement>('densityOut')
@@ -62,6 +64,11 @@ const read = (): LandscapeOptions => ({
   season: seasonSelect.value as Season | 'auto',
   weather: weatherSelect.value as Weather,
   time: timeSelect.value as TimeOfDay | 'auto',
+  seal: !sealInput.value.trim()
+    ? undefined
+    : sealStyle.value === 'relief'
+      ? { text: sealInput.value, style: 'relief' }
+      : sealInput.value,
   density: Number(density.value),
   trees: trees.checked,
   water: water.checked,

@@ -13,6 +13,8 @@ export type {
   LandscapeOptions,
   Palette,
   PaletteName,
+  SealCorner,
+  SealOptions,
   Season,
   SpaceBox,
   SpacePreset,

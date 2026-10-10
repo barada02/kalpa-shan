@@ -24,9 +24,10 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 - **Three compositions:** level 平远, high 高远 and deep 深远
 - **Animation:** a brush-stroke reveal, drifting mist and a drifting boat. Respects `prefers-reduced-motion`.
 - **Seasons, weather, time of day:** plum blossom, autumn colour, snow, rain, fog, a red sun at dusk, a moon at night. `auto` follows the visitor's date and clock, and the landscape itself stays the same all year.
+- **Your seal (印章):** a red stamp with your initials or name, the same on every painting
 - **Palettes:** ink, blue-green, night, mist, or your brand colours via CSS variables
 - **Fits any shape:** banner, card or phone, and redraws on resize
-- **Tiny:** about 10 KB gzipped, no dependencies, pure SVG
+- **Tiny:** about 11 KB gzipped, no dependencies, pure SVG
 - **Use it anywhere:** a web component, a JS API, a CDN script tag, or server-side rendering
 
 ## Quick start
@@ -34,7 +35,7 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 With no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.1/dist/kalpa-shan.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.3/dist/kalpa-shan.iife.js"></script>
 
 <kalpa-shan seed="welcome" space="left" animate style="aspect-ratio: 16 / 7">
   <h1>Your headline</h1>

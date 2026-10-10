@@ -67,6 +67,20 @@ for (const seed of ['welcome', 'mountain-dream']) {
   }
 }
 
+// Seal stamp (v0.3).
+const seals = {
+  'seal 1 char': { seal: '山' },
+  'seal 2 chars': { seal: '山水' },
+  'seal 4 chars relief': { seal: { text: '山高水长', style: 'relief' } },
+  'seal initials top-left': { seal: { text: 'KB', position: 'top-left' } },
+  'seal avoids space': { seal: '山水', space: { x: 0.6, y: 0.6, width: 0.38, height: 0.38 } },
+  'seal night palette animate': { seal: '雪', palette: 'night', animate: true },
+}
+
+for (const seed of ['welcome', 'mountain-dream']) {
+  for (const [name, opts] of Object.entries(seals)) cases[`${seed} high ${name}`] = { seed, distance: 'high', ...opts }
+}
+
 /** Replace this render's unique id prefix, which changes per call by design. */
 export function normalizeIds(svg) {
   const uid = svg.match(/id="(ks[0-9a-z]+)m"/)[1]
