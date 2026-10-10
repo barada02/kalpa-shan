@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalpa Shan web component</title>
-    <meta name="description" content="The <kalpa-shan> web component: generated Chinese ink landscapes (山水) with your content in the empty space." />
+    <meta name="description" content="The <kalpa-shan> web component: generated Chinese ink landscapes with your content in the empty space." />
     <meta property="og:title" content="Kalpa Shan: the <kalpa-shan> web component" />
-    <meta property="og:description" content="Generated Chinese ink landscapes (山水) as a web component. Seeded, animated, dependency-free SVG." />
+    <meta property="og:description" content="Generated Chinese ink landscapes as a web component. Seeded, animated, dependency-free SVG." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://barada02.github.io/kalpa-shan/element.html" />
     <meta property="og:image" content="https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png" />
@@ -14,7 +14,7 @@
   </head>
   <body>
     <header class="top">
-      <h1>Kalpa Shan <span class="zh">山水</span></h1>
+      <h1>Kalpa Shan</h1>
       <nav class="nav">
         <a href="./">Playground</a>
         <a href="./element.html" aria-current="page">Web component</a>
@@ -26,7 +26,7 @@
     <main class="demos">
       <section class="demo">
         <h2 class="demo-title">Hero with content in the empty space</h2>
-        <kalpa-shan class="hero" seed="welcome" distance="level" space="left" seal="山水" animate>
+        <kalpa-shan class="hero" seed="welcome" distance="level" space="left" seal="KS" animate>
           <div class="hero-copy">
             <h3>Quiet software for busy people</h3>
             <p>Slotted content is placed in the painting's empty space automatically.</p>
@@ -35,7 +35,7 @@
         </kalpa-shan>
         <pre class="code"><code>&lt;script type="module"&gt;import 'kalpa-shan/element'&lt;/script&gt;
 
-&lt;kalpa-shan seed="welcome" distance="level" space="left" seal="山水" animate&gt;
+&lt;kalpa-shan seed="welcome" distance="level" space="left" seal="KS" animate&gt;
   &lt;h1&gt;Quiet software for busy people&lt;/h1&gt;
   &lt;a href="/start"&gt;Get started&lt;/a&gt;
 &lt;/kalpa-shan&gt;</code></pre>
@@ -99,7 +99,7 @@
       <section class="demo">
         <h2 class="demo-title">Driven by attributes</h2>
         <kalpa-shan id="live" class="night" seed="moon" palette="night" distance="high" space="center" animate>
-          <h3 class="night-title">月下 · beneath the moon</h3>
+          <h3 class="night-title">Beneath the moon</h3>
         </kalpa-shan>
         <div class="actions">
           <button type="button" id="next">New seed</button>
