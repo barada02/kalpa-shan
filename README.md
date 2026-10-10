@@ -23,9 +23,10 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 - **Space for your content:** `left`, `right`, `center`, `top`, or any box
 - **Three compositions:** level 平远, high 高远 and deep 深远
 - **Animation:** a brush-stroke reveal, drifting mist and a drifting boat. Respects `prefers-reduced-motion`.
+- **Seasons, weather, time of day:** plum blossom, autumn colour, snow, rain, fog, a red sun at dusk, a moon at night. `auto` follows the visitor's date and clock, and the landscape itself stays the same all year.
 - **Palettes:** ink, blue-green, night, mist, or your brand colours via CSS variables
 - **Fits any shape:** banner, card or phone, and redraws on resize
-- **Tiny:** about 8 KB gzipped, no dependencies, pure SVG
+- **Tiny:** about 10 KB gzipped, no dependencies, pure SVG
 - **Use it anywhere:** a web component, a JS API, a CDN script tag, or server-side rendering
 
 ## Quick start
