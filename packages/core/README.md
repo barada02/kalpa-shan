@@ -20,7 +20,7 @@ npm install kalpa-shan
 Or use it straight from a CDN, with no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.1/dist/kalpa-shan.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.2/dist/kalpa-shan.iife.js"></script>
 <kalpa-shan seed="hello" animate></kalpa-shan>
 ```
 
