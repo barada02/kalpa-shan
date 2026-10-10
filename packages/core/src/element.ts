@@ -4,7 +4,7 @@ import { resolveSpace } from './space'
 import type { AnimateOptions, LandscapeOptions, Palette, PaletteName, SpaceBox, SpacePreset } from './types'
 
 /*
- * <kalpa-shan seed="home" distance="high" space="left" animate>
+ * <kalpa-shan seed="home" distance="high" space="left" season="auto" animate>
  *   <h1>Content placed in the empty space</h1>
  * </kalpa-shan>
  *
@@ -24,6 +24,9 @@ const ATTRIBUTES = [
   'animate',
   'duration',
   'label',
+  'season',
+  'weather',
+  'time',
 ] as const
 
 const STYLE = `
@@ -134,6 +137,9 @@ export class KalpaShanElement extends Base {
       grain: flag(this, 'grain'),
       animate,
       label: this.getAttribute('label') ?? undefined,
+      season: (this.getAttribute('season') as LandscapeOptions['season']) ?? undefined,
+      weather: (this.getAttribute('weather') as LandscapeOptions['weather']) ?? undefined,
+      time: (this.getAttribute('time') as LandscapeOptions['time']) ?? undefined,
     }
     // Drop unset keys so the library's defaults apply.
     for (const k of Object.keys(opts) as (keyof LandscapeOptions)[]) if (opts[k] === undefined) delete opts[k]

@@ -1,4 +1,5 @@
 import { resolveAnimate, Timeline } from './anim'
+import { addFog, isDark, resolveAtmosphere, sky, weather } from './atmosphere'
 import { compose, resolveDistance } from './compose'
 import { createNoise } from './noise'
 import { resolvePalette } from './palettes'
@@ -27,13 +28,14 @@ export function renderSVG(options: LandscapeOptions = {}): string {
   const palette = resolvePalette(options.palette)
   const space = resolveSpace(options.space)
   const anim = resolveAnimate(options.animate)
+  const atmos = resolveAtmosphere(options)
   const uid = `ks${hashSeed(seed).toString(36)}${(instanceCount++).toString(36)}`
   let idCount = 0
   const ctx: Ctx = {
     rng,
     noise: createNoise(rng),
     palette,
-    ids: { mist: `${uid}m`, grain: `${uid}g`, space: `${uid}s`, fog: `${uid}f` },
+    ids: { mist: `${uid}m`, grain: `${uid}g`, space: `${uid}s`, fog: `${uid}f`, air: `${uid}a` },
     uid: () => `${uid}c${(idCount++).toString(36)}`,
     tl: anim.reveal ? new Timeline() : null,
     motion: anim.motion,
@@ -42,14 +44,21 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     span: Math.max(W, H * 1.6),
     ceiling: makeCeiling(space, W, H),
     inSpace: makeInSpace(space, W, H),
+    season: atmos.season,
+    fx: new Rng(`${seed}~season`),
+    light: isDark(palette.paper) ? palette.ink : '#fbf9f3',
   }
 
   const distance = resolveDistance(options.distance, rng)
+  const airRng = new Rng(`${seed}~air`)
+  const back = sky(ctx, atmos, airRng)
   const layers = compose(ctx, distance, {
     D,
     trees: options.trees ?? true,
     water: options.water ?? true,
   })
+  if (atmos.weather === 'fog') addFog(ctx, layers, airRng)
+  const front = weather(ctx, atmos, airRng)
 
   // A soft veil of paper-coloured mist over the space, so text stays legible.
   let veil = ''
@@ -95,10 +104,17 @@ export function renderSVG(options: LandscapeOptions = {}): string {
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" height="100%" ` +
     `preserveAspectRatio="xMidYMid slice" role="img" aria-label="${label.replace(/"/g, '&quot;')}" ` +
-    `data-distance="${distance}">` +
+    `data-distance="${distance}"` +
+    // Only when asked for, so default output is unchanged; tells pages what 'auto' chose.
+    (options.season ? ` data-season="${atmos.season}"` : '') +
+    (options.weather ? ` data-weather="${atmos.weather}"` : '') +
+    (options.time ? ` data-time="${atmos.time}"` : '') +
+    `>` +
     defs +
     `<rect width="${W}" height="${H}" fill="${palette.paper}"/>` +
+    back +
     layers.join('') +
+    front +
     veil +
     grain +
     `</svg>`
