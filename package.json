@@ -10,7 +10,8 @@
     "predev": "npm run build -w kalpa-shan",
     "dev": "concurrently -k -n core,app -c cyan,magenta \"npm run dev -w kalpa-shan\" \"npm run dev -w playground\"",
     "build": "npm run build --workspaces",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
   },
   "devDependencies": {
     "concurrently": "^10.0.5",

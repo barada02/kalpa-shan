@@ -33,6 +33,9 @@
     "dev": "vite build --watch",
     "build": "vite build && vite build -c vite.cdn.config.ts",
     "typecheck": "tsc --noEmit",
+    "pretest": "npm run build",
+    "test": "node --test \"test/*.test.mjs\"",
+    "test:update": "npm run build && node test/update-snapshots.mjs",
     "prepublishOnly": "npm run build"
   },
   "repository": {
