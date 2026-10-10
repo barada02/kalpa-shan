@@ -49,7 +49,7 @@ test('animation never changes the painting', () => {
 })
 
 test('animation never changes the painting, in any weather', () => {
-  for (const atmosphere of [{ weather: 'rain' }, { weather: 'snow', season: 'winter' }, { weather: 'fog', time: 'night' }, { season: 'spring', time: 'dusk' }]) {
+  for (const atmosphere of [{ weather: 'rain' }, { weather: 'snow', season: 'winter' }, { weather: 'fog', time: 'night' }, { season: 'spring', time: 'dusk' }, { birds: true, travellers: true, waterfall: true }]) {
     for (const distance of ['level', 'high', 'deep']) {
       const options = { seed: 'weather', distance, space: 'left', ...atmosphere }
       const still = stripAnimation(renderSVG(options))

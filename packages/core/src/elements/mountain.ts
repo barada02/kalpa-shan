@@ -19,6 +19,8 @@ export interface MountainOptions {
   trees: boolean
   /** Distant mountain: soft wash only, no strokes. */
   washOnly?: boolean
+  /** Receives the final ridge line (if drawn), so details can sit on it. */
+  onRidge?: (ridge: Pt[]) => void
 }
 
 export function mountain(ctx: Ctx, o: MountainOptions): string {
@@ -60,6 +62,7 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
   const top = Math.max(...heights)
   // Squashed to a sliver by the space: it would only read as a stray line, so leave it out.
   if (top < Math.max(2, o.h * 0.2)) return ''
+  o.onRidge?.(profile)
   const bodyPath = pathFromPoints(profile, true)
 
   // Seasons tint the washes: fresh green in spring, ochre in autumn.

@@ -81,6 +81,22 @@ for (const seed of ['welcome', 'mountain-dream']) {
   for (const [name, opts] of Object.entries(seals)) cases[`${seed} high ${name}`] = { seed, distance: 'high', ...opts }
 }
 
+// Living details (v0.4).
+const life = {
+  'birds': { birds: true },
+  'travellers': { travellers: true },
+  'waterfall': { waterfall: true },
+  'all life': { birds: true, travellers: true, waterfall: true },
+  'all life space left': { birds: true, travellers: true, waterfall: true, space: 'left' },
+  'all life winter night animate': { birds: true, travellers: true, waterfall: true, season: 'winter', time: 'night', animate: true },
+}
+
+for (const seed of ['welcome', 'mountain-dream']) {
+  for (const distance of ['level', 'high', 'deep']) {
+    for (const [name, opts] of Object.entries(life)) cases[`${seed} ${distance} ${name}`] = { seed, distance, ...opts }
+  }
+}
+
 /** Replace this render's unique id prefix, which changes per call by design. */
 export function normalizeIds(svg) {
   const uid = svg.match(/id="(ks[0-9a-z]+)m"/)[1]

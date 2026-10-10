@@ -94,6 +94,12 @@ export interface LandscapeOptions {
   time?: TimeOfDay | 'auto'
   /** The moment `'auto'` season and time follow, in its local time zone. Default: now. */
   date?: Date | string | number
+  /** A small flock of birds in the sky. Default false. */
+  birds?: boolean
+  /** Two travellers walking along the foreground ridge. Default false. */
+  travellers?: boolean
+  /** A waterfall down the main peak (on `high` compositions). Default false. */
+  waterfall?: boolean
   /** A red seal in a corner: its text, or full options. The same seal looks identical on every painting. */
   seal?: string | SealOptions
   /**
@@ -133,4 +139,6 @@ export interface Ctx {
   fx: Rng
   /** Snow, moonlight: unpainted silk on light paper, the ink colour on dark paper. */
   light: string
+  /** A named rng stream derived from the seed, for optional details that must not disturb `rng`. */
+  stream: (name: string) => Rng
 }

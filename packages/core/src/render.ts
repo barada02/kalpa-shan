@@ -1,6 +1,7 @@
 import { resolveAnimate, Timeline } from './anim'
 import { addFog, isDark, resolveAtmosphere, sky, weather } from './atmosphere'
 import { compose, resolveDistance } from './compose'
+import { birds } from './elements/life'
 import { createNoise } from './noise'
 import { resolvePalette } from './palettes'
 import { hashSeed, randomSeed, Rng } from './rng'
@@ -48,6 +49,7 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     season: atmos.season,
     fx: new Rng(`${seed}~season`),
     light: isDark(palette.paper) ? palette.ink : '#fbf9f3',
+    stream: (name) => new Rng(`${seed}~${name}`),
   }
 
   const distance = resolveDistance(options.distance, rng)
@@ -57,7 +59,10 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     D,
     trees: options.trees ?? true,
     water: options.water ?? true,
+    travellers: options.travellers ?? false,
+    waterfall: options.waterfall ?? false,
   })
+  if (options.birds) layers.push(birds(ctx))
   if (atmos.weather === 'fog') addFog(ctx, layers, airRng)
   const front = weather(ctx, atmos, airRng)
   const sealOpts = resolveSeal(options.seal)

@@ -37,8 +37,9 @@ test('the label is escaped and the distance is reported', () => {
 })
 
 // The CDN bundle carries the whole library. Raise this only with a reason (see CLAUDE.md).
-// History: 8.2 KB in v0.1; 10.0 KB in v0.2 (seasons, weather, time of day); 10.9 KB in v0.3 (seal). Budget 12 KB.
-const BUDGET = 12 * 1024
+// History: 8.2 KB in v0.1; 10.0 KB in v0.2 (seasons, weather, time of day); 10.9 KB in v0.3 (seal);
+// 12.1 KB in v0.4 (birds, travellers, waterfall). Budget 14 KB.
+const BUDGET = 14 * 1024
 
 test(`CDN bundle stays under ${BUDGET / 1024} KB gzipped`, () => {
   const size = gzipSync(readFileSync(new URL('../dist/kalpa-shan.iife.js', import.meta.url))).length
