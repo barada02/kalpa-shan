@@ -23,6 +23,13 @@ export type Distance = 'level' | 'high' | 'deep' | 'pingyuan' | 'gaoyuan' | 'she
 
 export type SpacePreset = 'none' | 'left' | 'right' | 'center' | 'top'
 
+/** `summer` is the plain painting; the others add blossom, autumn colour or snow. */
+export type Season = 'spring' | 'summer' | 'autumn' | 'winter'
+
+export type Weather = 'clear' | 'rain' | 'snow' | 'fog'
+
+export type TimeOfDay = 'day' | 'dusk' | 'night'
+
 /** A region kept clear for content, as fractions (0..1) of the drawing's width/height. */
 export interface SpaceBox {
   x: number
@@ -64,6 +71,17 @@ export interface LandscapeOptions {
   /** Accessible label for the SVG. */
   label?: string
   /**
+   * Season. `'auto'` follows `date` (northern-hemisphere months). The landscape itself stays
+   * the same in every season; only blossom, leaves and snow change. Default `'summer'`.
+   */
+  season?: Season | 'auto'
+  /** Weather over the landscape. Default `'clear'`. */
+  weather?: Weather
+  /** Time of day: a red sun at dusk, a moon at night. `'auto'` follows `date`. Default `'day'`. */
+  time?: TimeOfDay | 'auto'
+  /** The moment `'auto'` season and time follow, in its local time zone. Default: now. */
+  date?: Date | string | number
+  /**
    * Animate the painting (off by default). `true` enables reveal + ambient motion.
    * `createLandscape` turns it off for users who prefer reduced motion.
    */
@@ -75,7 +93,8 @@ export interface Ctx {
   rng: Rng
   noise: Noise2
   palette: Required<Palette>
-  ids: { mist: string; grain: string; space: string; fog: string }
+  /** Fixed element ids. `air` is a prefix for season, weather and time elements. */
+  ids: { mist: string; grain: string; space: string; fog: string; air: string }
   /** A fresh unique element id. */
   uid: () => string
   /** Reveal timeline, or null when not revealing. */
@@ -91,4 +110,12 @@ export interface Ctx {
   ceiling: (x: number) => number
   /** Whether (x, y) lies in the space box. */
   inSpace: (x: number, y: number) => boolean
+  season: Season
+  /**
+   * Random stream for seasonal touches. Kept apart from `rng` so a season never moves
+   * a mountain or a tree: the same seed is the same landscape all year.
+   */
+  fx: Rng
+  /** Snow, moonlight: unpainted silk on light paper, the ink colour on dark paper. */
+  light: string
 }

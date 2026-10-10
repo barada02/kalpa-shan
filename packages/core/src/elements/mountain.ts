@@ -1,8 +1,11 @@
 import { fadeIn, wipe } from '../anim'
 import { brush, pathFromPoints, type Pt } from '../stroke'
-import type { Ctx } from '../types'
+import { isDark } from '../atmosphere'
+import type { Ctx, Season } from '../types'
 import { circle, fillPath } from './svg'
-import { tree } from './tree'
+import { AUTUMN, tree } from './tree'
+
+const TINT: Partial<Record<Season, string>> = { spring: '#7f9a5c', autumn: '#b5793a' }
 
 export interface MountainOptions {
   /** Centre x of the base. */
@@ -59,10 +62,19 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
   if (top < Math.max(2, o.h * 0.2)) return ''
   const bodyPath = pathFromPoints(profile, true)
 
-  if (o.washOnly) return fadeIn(ctx, `<path d="${bodyPath}" fill="url(#${ids.mist})"/>`, 0.25, 1.2)
+  // Seasons tint the washes: fresh green in spring, ochre (赭石) in autumn.
+  const tint = TINT[ctx.season]
+  const tinted = tint ? `<path d="${bodyPath}" fill="${tint}" fill-opacity="0.14"/>` : ''
+
+  if (o.washOnly) return fadeIn(ctx, `<path d="${bodyPath}" fill="url(#${ids.mist})"/>${tinted}`, 0.25, 1.2)
 
   // Opaque paper fill hides whatever is behind, then a misty wash fading toward the base.
-  const body = `<path d="${bodyPath}" fill="${palette.paper}"/><path d="${bodyPath}" fill="url(#${ids.mist})"/>`
+  let body = `<path d="${bodyPath}" fill="${palette.paper}"/><path d="${bodyPath}" fill="url(#${ids.mist})"/>${tinted}`
+  if (ctx.season === 'winter') {
+    // Snow: the upper slopes left unwashed, down to an uneven snow line.
+    const line: Pt[] = profile.map(([x, y], i) => [x, y + heights[i] * (0.25 + 0.3 * noise(i * 0.15, ch + 55))])
+    body += `<path d="${pathFromPoints([...profile, ...line.reverse()], true)}" fill="${ctx.light}"${isDark(palette.paper) ? ' fill-opacity="0.5"' : ''}/>`
+  }
   const texture: string[] = []
   const details: string[] = []
   const strokeW = 1 + o.h * 0.006
@@ -114,7 +126,8 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
     const [x, y] = profile[i]
     const dots = rng.int(2, 5)
     for (let k = 0; k < dots; k++) {
-      details.push(circle(x + rng.range(-6, 6), y + rng.range(-2, 5), rng.range(0.8, 2.2), palette.ink, rng.range(0.6, 1)))
+      const color = ctx.season === 'autumn' && ctx.fx.chance(0.5) ? ctx.fx.pick(AUTUMN) : palette.ink
+      details.push(circle(x + rng.range(-6, 6), y + rng.range(-2, 5), rng.range(0.8, 2.2), color, rng.range(0.6, 1)))
     }
   }
 

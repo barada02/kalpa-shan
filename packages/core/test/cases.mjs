@@ -43,6 +43,30 @@ for (const seed of ['welcome', 'mountain-dream']) {
   }
 }
 
+// Season, weather and time of day (v0.2).
+const atmosphere = {
+  'spring': { season: 'spring' },
+  'autumn': { season: 'autumn' },
+  'winter': { season: 'winter' },
+  'rain': { weather: 'rain' },
+  'snow': { weather: 'snow', season: 'winter' },
+  'fog': { weather: 'fog' },
+  'dusk': { time: 'dusk' },
+  'night': { time: 'night' },
+  'night palette winter night': { palette: 'night', season: 'winter', time: 'night', weather: 'snow' },
+  'autumn dusk space left': { season: 'autumn', time: 'dusk', space: 'left' },
+  'auto 2026-01-15 22:00': { season: 'auto', time: 'auto', date: new Date(2026, 0, 15, 22) },
+  'animate rain night': { weather: 'rain', time: 'night', animate: true },
+}
+
+for (const seed of ['welcome', 'mountain-dream']) {
+  for (const distance of ['level', 'high', 'deep']) {
+    for (const [name, opts] of Object.entries(atmosphere)) {
+      cases[`${seed} ${distance} ${name}`] = { seed, distance, ...opts }
+    }
+  }
+}
+
 /** Replace this render's unique id prefix, which changes per call by design. */
 export function normalizeIds(svg) {
   const uid = svg.match(/id="(ks[0-9a-z]+)m"/)[1]

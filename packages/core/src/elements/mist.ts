@@ -1,12 +1,14 @@
 import { drift } from '../anim'
+import type { Rng } from '../rng'
 import type { Ctx } from '../types'
 
 /**
  * A band of soft paper-coloured cloud at height y, laid between layers so mountains
  * rise out of it. Always part of the painting; with motion on, it drifts slowly.
+ * Fog passes its own `rng`, so its extra bands never shift the landscape.
  */
-export function mistBand(ctx: Ctx, y: number, thickness: number, opacity = 0.75): string {
-  const { rng, W } = ctx
+export function mistBand(ctx: Ctx, y: number, thickness: number, opacity = 0.75, rng: Rng = ctx.rng): string {
+  const { W } = ctx
   const puffs = rng.int(3, 5)
   let out = ''
   for (let i = 0; i < puffs; i++) {

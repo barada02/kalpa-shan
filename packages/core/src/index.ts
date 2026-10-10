@@ -6,7 +6,19 @@ export { renderSVG } from './render'
 export { palettes } from './palettes'
 export { randomSeed } from './rng'
 export { resolveSpace, spacePresets } from './space'
-export type { AnimateOptions, Distance, LandscapeOptions, Palette, PaletteName, SpaceBox, SpacePreset } from './types'
+export { seasonOf, timeOf } from './atmosphere'
+export type {
+  AnimateOptions,
+  Distance,
+  LandscapeOptions,
+  Palette,
+  PaletteName,
+  Season,
+  SpaceBox,
+  SpacePreset,
+  TimeOfDay,
+  Weather,
+} from './types'
 
 export interface Landscape {
   /** Merge new options and redraw (replays the reveal if animated). */

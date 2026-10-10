@@ -1,7 +1,7 @@
 # Kalpa Shan
 
 Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website: hero backgrounds, headers, covers and cards.
-Seeded, animated, dependency-free SVG, about 8 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
+Seeded, animated, dependency-free SVG, about 10 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
 
 ![Kalpa Shan: a hero with space for text, and the three compositions](https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png)
 
@@ -49,6 +49,9 @@ Content inside the element is placed in the empty space automatically. Size the 
 | `trees`, `water`, `grain` | set to `"false"` to turn off | on |
 | `animate` | present to animate | off |
 | `duration` | reveal length in seconds | `6` |
+| `season` | `spring` · `summer` · `autumn` · `winter` · `auto` | `summer` |
+| `weather` | `clear` · `rain` · `snow` · `fog` | `clear` |
+| `time` | `day` · `dusk` · `night` · `auto` | `day` |
 | `label` | accessible description | "Generated Chinese ink landscape" |
 
 Changing an attribute redraws. Methods: `replay()`, `pause()`, `play()`, `toSVG()`.
@@ -91,6 +94,10 @@ The drawing fills the element and matches its aspect ratio (so `space` lines up 
 | `trees` / `water` / `grain` | `boolean` | `true` |
 | `animate` | `boolean \| { reveal?, motion?, duration? }` | `false` |
 | `width` / `height` | viewBox size; set only for a fixed size | fit to element |
+| `season` | `'spring' \| 'summer' \| 'autumn' \| 'winter' \| 'auto'` | `'summer'` |
+| `weather` | `'clear' \| 'rain' \| 'snow' \| 'fog'` | `'clear'` |
+| `time` | `'day' \| 'dusk' \| 'night' \| 'auto'` | `'day'` |
+| `date` | `Date \| string \| number`: the moment `'auto'` follows | now |
 | `label` | `string` | "Generated Chinese ink landscape" |
 
 ### The three distances (三远)
@@ -113,6 +120,24 @@ createLandscape('#hero', { space: { x: 0.1, y: 0.1, width: 0.5, height: 0.4 } })
 ```
 
 `resolveSpace(space)` returns the box as fractions, so you can position your own elements over it.
+
+### Seasons, weather and time of day
+
+```js
+createLandscape('#hero', { seed: 'home', season: 'winter', weather: 'snow', time: 'night' })
+createLandscape('#hero', { seed: 'home', season: 'auto', time: 'auto' }) // follows the visitor's date and clock
+```
+
+| | |
+| --- | --- |
+| `season` | `spring`: plum blossom and fresh green washes. `summer`: the plain painting. `autumn`: ochre hills and turning leaves. `winter`: snow on the peaks and pines, bare trees, a grey sky. |
+| `weather` | `rain`: slanting streaks. `snow`: falling flakes. `fog`: mist drifting between the ranges. With `animate`, rain and snow fall. |
+| `time` | `dusk`: a red sun and a warm glow. `night`: a moon set off by a halo of wash (烘云托月). |
+
+- **The landscape stays the same.** A seed keeps its mountains, trees and boat in every season, weather and time; only the atmosphere changes. A site using `season: 'auto'` keeps its painting all year.
+- `'auto'` reads the date when the painting is drawn, in the local time zone (northern-hemisphere seasons). Pass `date` to control it, for example when rendering on a server for visitors elsewhere. `seasonOf(date)` and `timeOf(date)` return what `'auto'` picks.
+- The SVG gets `data-season`, `data-weather` and `data-time` attributes for the options you set, so your page can match it (for example, light text at night).
+- With `space` at night, the veil behind your text shows as a pale cloud. That keeps dark text readable.
 
 ### Animation
 
