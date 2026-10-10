@@ -1,6 +1,6 @@
 {
   "name": "kalpa-shan",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Procedurally generated Chinese ink landscapes for the web. Seeded, animated, dependency-free SVG, as a JS API or a <kalpa-shan> web component.",
   "type": "module",
   "main": "./dist/kalpa-shan.cjs",
