@@ -59,6 +59,7 @@
     "hero",
     "background"
   ],
+  "author": "Chandan Kumar Barada (https://github.com/barada02)",
   "license": "MIT",
   "devDependencies": {
     "@typescript/typescript6": "^6.0.2",
