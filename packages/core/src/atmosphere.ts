@@ -86,7 +86,7 @@ export function sky(ctx: Ctx, a: Atmosphere, rng: Rng): string {
     out += `<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="${SUN}" fill-opacity="0.85"/>`
   } else if (a.time === 'night') {
     out += wash(ctx, 'n', shade, [[0, 0.42], [0.6, 0.2], [1, 0.1]])
-    // 烘云托月: the moon is the paper left bare, set off by a soft halo of light.
+    // The moon is the paper left bare, set off by a soft halo of light.
     const r = H * rng.range(0.045, 0.065)
     const [x, y] = skySpot(ctx, rng, r * 2, 0.1, 0.28)
     const id = `${ctx.ids.air}h`

@@ -4,7 +4,7 @@ import { boat, water } from '../elements/water'
 import type { Ctx } from '../types'
 import { awaySide, farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 平远 Level distance: low horizon, wide water, low hills far away, a few trees on a near bank. */
+/** Level distance: low horizon, wide water, low hills far away, a few trees on a near bank. */
 export function level(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []

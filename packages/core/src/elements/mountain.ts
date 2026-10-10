@@ -62,7 +62,7 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
   if (top < Math.max(2, o.h * 0.2)) return ''
   const bodyPath = pathFromPoints(profile, true)
 
-  // Seasons tint the washes: fresh green in spring, ochre (赭石) in autumn.
+  // Seasons tint the washes: fresh green in spring, ochre in autumn.
   const tint = TINT[ctx.season]
   const tinted = tint ? `<path d="${bodyPath}" fill="${tint}" fill-opacity="0.14"/>` : ''
 
@@ -101,7 +101,7 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
     flush()
   }
 
-  // Axe-cut strokes (斧劈皴): short strokes falling from the ridge, slanting outward.
+  // Axe-cut strokes: short strokes falling from the ridge, slanting outward.
   const peakX = profile[heights.indexOf(top)][0]
   const cuts = Math.round(rel * 133 * (0.4 + o.detail))
   for (let c = 0; c < cuts; c++) {
@@ -120,7 +120,7 @@ export function mountain(ctx: Ctx, o: MountainOptions): string {
 
   const ridge = fillPath(brush(profile, { width: strokeW * 1.8, noise, channel: ch + 99, taper: 0.3, jitter: 0.8 }), palette.ink)
 
-  // Moss dots (点苔) along the ridge.
+  // Moss dots along the ridge.
   for (let i = 1; i < n; i++) {
     if (heights[i] < o.h * 0.25 || !rng.chance(0.1 * o.detail)) continue
     const [x, y] = profile[i]

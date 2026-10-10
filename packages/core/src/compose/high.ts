@@ -4,7 +4,7 @@ import { boat, water } from '../elements/water'
 import type { Ctx } from '../types'
 import { awaySide, farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 高远 High distance: one towering main peak with lower flanking peaks, seen from below. */
+/** High distance: one towering main peak with lower flanking peaks, seen from below. */
 export function high(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []

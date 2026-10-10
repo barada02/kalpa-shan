@@ -3,13 +3,13 @@ import { Rng } from './rng'
 import type { Ctx, SealCorner, SealOptions } from './types'
 
 /*
- * The red seal (印章) a painter presses onto the finished work. Its irregularities come
+ * The red seal a painter presses onto the finished work. Its irregularities come
  * from the seal's own text, not the painting's seed, so one seal looks identical on every
  * painting, just like a real stamp.
  */
 
 const VERMILION = '#b8322a'
-const FONT = `'STKaiti','KaiTi',serif`
+const FONT = `Georgia,'Times New Roman',serif`
 const CORNERS: readonly SealCorner[] = ['bottom-right', 'bottom-left', 'top-right', 'top-left']
 const r1 = (n: number) => Math.round(n * 10) / 10
 

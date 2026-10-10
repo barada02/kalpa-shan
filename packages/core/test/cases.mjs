@@ -69,12 +69,12 @@ for (const seed of ['welcome', 'mountain-dream']) {
 
 // Seal stamp (v0.3).
 const seals = {
-  'seal 1 char': { seal: '山' },
-  'seal 2 chars': { seal: '山水' },
-  'seal 4 chars relief': { seal: { text: '山高水长', style: 'relief' } },
+  'seal 1 char': { seal: 'K' },
+  'seal 2 chars': { seal: 'KB' },
+  'seal 4 chars relief': { seal: { text: 'KSAB', style: 'relief' } },
   'seal initials top-left': { seal: { text: 'KB', position: 'top-left' } },
-  'seal avoids space': { seal: '山水', space: { x: 0.6, y: 0.6, width: 0.38, height: 0.38 } },
-  'seal night palette animate': { seal: '雪', palette: 'night', animate: true },
+  'seal avoids space': { seal: 'KB', space: { x: 0.6, y: 0.6, width: 0.38, height: 0.38 } },
+  'seal night palette animate': { seal: 'S', palette: 'night', animate: true },
 }
 
 for (const seed of ['welcome', 'mountain-dream']) {

@@ -4,7 +4,7 @@ import { boat, water } from '../elements/water'
 import type { Ctx } from '../types'
 import { farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 深远 Deep distance: overlapping ranges alternating left and right, receding up into a valley. */
+/** Deep distance: overlapping ranges alternating left and right, receding up into a valley. */
 export function deep(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []
