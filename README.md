@@ -74,10 +74,12 @@ npm run dev
 
 This opens a playground where you can change seeds, compositions, palettes and animation, and see the web component demos.
 
+`npm test` checks that every seed in the test set still draws exactly the same painting.
+
 ## Project structure
 
 ```
-packages/core      the `kalpa-shan` library, published to npm
+packages/core      the `kalpa-shan` library, published to npm (tests in packages/core/test)
 apps/playground    demo app that uses the library the way you would
 ```
 
