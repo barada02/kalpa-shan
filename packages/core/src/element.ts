@@ -1,7 +1,7 @@
 import { createLandscape, type Landscape } from './index'
 import { palettes } from './palettes'
 import { resolveSpace } from './space'
-import type { AnimateOptions, LandscapeOptions, Palette, PaletteName, SpaceBox, SpacePreset } from './types'
+import type { AnimateOptions, LandscapeOptions, Palette, PaletteName, SealOptions, SpaceBox, SpacePreset } from './types'
 
 /*
  * <kalpa-shan seed="home" distance="high" space="left" season="auto" animate>
@@ -27,6 +27,9 @@ const ATTRIBUTES = [
   'season',
   'weather',
   'time',
+  'seal',
+  'seal-position',
+  'seal-style',
 ] as const
 
 const STYLE = `
@@ -140,10 +143,22 @@ export class KalpaShanElement extends Base {
       season: (this.getAttribute('season') as LandscapeOptions['season']) ?? undefined,
       weather: (this.getAttribute('weather') as LandscapeOptions['weather']) ?? undefined,
       time: (this.getAttribute('time') as LandscapeOptions['time']) ?? undefined,
+      seal: this.readSeal(),
     }
     // Drop unset keys so the library's defaults apply.
     for (const k of Object.keys(opts) as (keyof LandscapeOptions)[]) if (opts[k] === undefined) delete opts[k]
     return opts
+  }
+
+  /** seal="KB" with optional seal-position / seal-style. */
+  private readSeal(): SealOptions | undefined {
+    const text = this.getAttribute('seal')
+    if (!text) return undefined
+    return {
+      text,
+      position: (this.getAttribute('seal-position') as SealOptions['position']) ?? undefined,
+      style: (this.getAttribute('seal-style') as SealOptions['style']) ?? undefined,
+    }
   }
 
   /** A named palette, overridden per colour by --kalpa-* custom properties. */

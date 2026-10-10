@@ -4,6 +4,7 @@ import { compose, resolveDistance } from './compose'
 import { createNoise } from './noise'
 import { resolvePalette } from './palettes'
 import { hashSeed, randomSeed, Rng } from './rng'
+import { resolveSeal, seal } from './seal'
 import { makeCeiling, makeInSpace, resolveSpace } from './space'
 import type { Ctx, LandscapeOptions } from './types'
 
@@ -59,6 +60,8 @@ export function renderSVG(options: LandscapeOptions = {}): string {
   })
   if (atmos.weather === 'fog') addFog(ctx, layers, airRng)
   const front = weather(ctx, atmos, airRng)
+  const sealOpts = resolveSeal(options.seal)
+  const stamp = sealOpts ? seal(ctx, sealOpts) : ''
 
   // A soft veil of paper-coloured mist over the space, so text stays legible.
   let veil = ''
@@ -116,6 +119,7 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     layers.join('') +
     front +
     veil +
+    stamp +
     grain +
     `</svg>`
   return ctx.tl ? ctx.tl.resolve(svg, anim.duration) : svg
