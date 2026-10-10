@@ -1,6 +1,6 @@
 # Kalpa Shan
 
-**Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website.**
+**Procedurally generated Chinese ink landscapes for your website.**
 Hero backgrounds, headers and post covers, each one a unique painting from a seed.
 
 **[Try it live](https://barada02.github.io/kalpa-shan/)**: pick a seed, a palette and a composition, and copy the code.
@@ -9,11 +9,11 @@ Hero backgrounds, headers and post covers, each one a unique painting from a see
 
 ## Why
 
-Traditional *shan shui* (山水, "mountain-water") painting has ideas that fit web design well:
+Traditional ink landscape painting has ideas that fit web design well:
 
-- **留白 (liú bái), "leaving white":** painters kept empty space on purpose. Kalpa Shan does the same for your headline. Say where your text goes, and the mountains move aside.
-- **三远 (sān yuǎn), the three distances:** Guo Xi's 11th-century theory of composition. It gives three distinct layouts: a wide *level* view across water, a towering *high* peak, and a *deep* valley of receding ranges.
-- **Brushwork:** ridge lines, texture strokes (皴) and moss dots are drawn as ink strokes, and they can paint themselves in when the page loads.
+- **Leaving white space:** painters kept empty space on purpose. Kalpa Shan does the same for your headline. Say where your text goes, and the mountains move aside.
+- **The three distances:** Guo Xi's 11th-century theory of composition. It gives three distinct layouts: a wide *level* view across water, a towering *high* peak, and a *deep* valley of receding ranges.
+- **Brushwork:** ridge lines, texture strokes and moss dots are drawn as ink strokes, and they can paint themselves in when the page loads.
 
 Give it a seed, such as a page slug or a post title, and you get the same painting every time.
 
@@ -21,13 +21,14 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 
 - **Seeded:** the same seed always gives the same painting
 - **Space for your content:** `left`, `right`, `center`, `top`, or any box
-- **Three compositions:** level 平远, high 高远 and deep 深远
+- **Three compositions:** level, high and deep
 - **Animation:** a brush-stroke reveal, drifting mist and a drifting boat. Respects `prefers-reduced-motion`.
 - **Seasons, weather, time of day:** plum blossom, autumn colour, snow, rain, fog, a red sun at dusk, a moon at night. `auto` follows the visitor's date and clock, and the landscape itself stays the same all year.
-- **Your seal (印章):** a red stamp with your initials or name, the same on every painting
+- **Living details:** birds in flight, travellers on a ridge, a waterfall down the main peak
+- **Your seal:** a red stamp with your initials or name, the same on every painting
 - **Palettes:** ink, blue-green, night, mist, or your brand colours via CSS variables
 - **Fits any shape:** banner, card or phone, and redraws on resize
-- **Tiny:** about 11 KB gzipped, no dependencies, pure SVG
+- **Tiny:** about 12 KB gzipped, no dependencies, pure SVG
 - **Use it anywhere:** a web component, a JS API, a CDN script tag, or server-side rendering
 
 ## Quick start
@@ -35,7 +36,7 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 With no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.3/dist/kalpa-shan.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.4/dist/kalpa-shan.iife.js"></script>
 
 <kalpa-shan seed="welcome" space="left" animate style="aspect-ratio: 16 / 7">
   <h1>Your headline</h1>
@@ -59,11 +60,9 @@ createLandscape('#hero', { seed: 'my-post', distance: 'high', space: 'left', ani
 
 ## About the name
 
-**Kalpa** (कल्प) is Sanskrit for "creation", and for an aeon, a vast span of cosmic time. **Shan** (山) is Chinese for mountain.
+**Kalpa** (कल्प) is Sanskrit for "creation", and for an aeon, a vast span of cosmic time. **Shan** means mountain.
 
 The two belong together. Asked how long a kalpa is, the Buddha answered with a mountain: picture a mountain of solid rock, a league high, and once every hundred years someone strokes it with a silk cloth. The mountain would wear away before the kalpa ends (*Pabbata Sutta*, SN 15.5). A cloth slowly shaping a mountain, much like a brush.
-
-The word itself made the same journey as the name. *Kalpa* travelled from India to China with Buddhism, where it became 劫 (jié).
 
 ## Try it locally
 

@@ -8,6 +8,8 @@ export interface Scene {
   D: number
   trees: boolean
   water: boolean
+  travellers: boolean
+  waterfall: boolean
 }
 
 type Range = [number, number]

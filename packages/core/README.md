@@ -1,13 +1,13 @@
 # Kalpa Shan
 
-Procedurally generated Chinese ink landscapes (山水, *shan shui*) for your website: hero backgrounds, headers, covers and cards.
-Seeded, animated, dependency-free SVG, about 11 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
+Procedurally generated Chinese ink landscapes for your website: hero backgrounds, headers, covers and cards.
+Seeded, animated, dependency-free SVG, about 12 KB gzipped. **[Try it live](https://barada02.github.io/kalpa-shan/)**
 
 ![Kalpa Shan: a hero with space for text, and the three compositions](https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png)
 
 - **Same seed, same painting.** Use a page slug or a title as the seed and every page gets its own painting, which never changes.
-- **Leaves room for your content (留白).** Tell it where your headline goes and the mountains make space.
-- **Composed, not random.** Three layouts after Guo Xi's classical *three distances* (三远).
+- **Leaves room for your content.** Tell it where your headline goes and the mountains make space.
+- **Composed, not random.** Three layouts after Guo Xi's classical *three distances*.
 - **Paints itself in.** An optional brush reveal plus drifting mist, respecting `prefers-reduced-motion`.
 - **Works anywhere:** a `<kalpa-shan>` web component, a JS API, a CDN script, or server-side SVG strings.
 
@@ -20,7 +20,7 @@ npm install kalpa-shan
 Or use it straight from a CDN, with no build step:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.3/dist/kalpa-shan.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kalpa-shan@0.4/dist/kalpa-shan.iife.js"></script>
 <kalpa-shan seed="hello" animate></kalpa-shan>
 ```
 
@@ -47,14 +47,15 @@ Content inside the element is placed in the empty space automatically. Size the 
 | `space` | `left` · `right` · `center` · `top` · `none`, or `"x y width height"` as fractions | `none` |
 | `density` | `0` to `1` | `0.6` |
 | `trees`, `water`, `grain` | set to `"false"` to turn off | on |
+| `birds`, `travellers`, `waterfall` | present to turn on | off |
 | `animate` | present to animate | off |
 | `duration` | reveal length in seconds | `6` |
 | `season` | `spring` · `summer` · `autumn` · `winter` · `auto` | `summer` |
 | `weather` | `clear` · `rain` · `snow` · `fog` | `clear` |
 | `time` | `day` · `dusk` · `night` · `auto` | `day` |
-| `seal` | 1–4 characters, e.g. `山水` or `KB` | none |
+| `seal` | 1–4 characters, e.g. your initials `KB` | none |
 | `seal-position` | `bottom-right` · `bottom-left` · `top-right` · `top-left` | `bottom-right` |
-| `seal-style` | `intaglio` (白文) · `relief` (朱文) | `intaglio` |
+| `seal-style` | `intaglio` · `relief` | `intaglio` |
 | `label` | accessible description | "Generated Chinese ink landscape" |
 
 Changing an attribute redraws. Methods: `replay()`, `pause()`, `play()`, `toSVG()`.
@@ -91,10 +92,11 @@ The drawing fills the element and matches its aspect ratio (so `space` lines up 
 | --- | --- | --- |
 | `seed` | `string \| number` | random |
 | `palette` | `'sumi' \| 'qinglu' \| 'night' \| 'mist' \| { paper, ink, wash? }` | `'sumi'` |
-| `distance` | `'level' \| 'high' \| 'deep' \| 'auto'` (Chinese names like `'gaoyuan'` also work) | `'auto'` |
+| `distance` | `'level' \| 'high' \| 'deep' \| 'auto'` | `'auto'` |
 | `space` | `'none' \| 'left' \| 'right' \| 'center' \| 'top' \| { x, y, width, height }` | `'none'` |
 | `density` | `0`–`1` | `0.6` |
 | `trees` / `water` / `grain` | `boolean` | `true` |
+| `birds` / `travellers` / `waterfall` | `boolean` | `false` |
 | `animate` | `boolean \| { reveal?, motion?, duration? }` | `false` |
 | `width` / `height` | viewBox size; set only for a fixed size | fit to element |
 | `season` | `'spring' \| 'summer' \| 'autumn' \| 'winter' \| 'auto'` | `'summer'` |
@@ -104,17 +106,17 @@ The drawing fills the element and matches its aspect ratio (so `space` lines up 
 | `date` | `Date \| string \| number`: the moment `'auto'` follows | now |
 | `label` | `string` | "Generated Chinese ink landscape" |
 
-### The three distances (三远)
+### The three distances
 
 After Guo Xi's 11th-century theory of landscape composition:
 
-| `distance` | | View |
-| --- | --- | --- |
-| `'level'` | 平远 pingyuan | Wide, calm water with low hills far away |
-| `'high'` | 高远 gaoyuan | Looking up at a towering main peak |
-| `'deep'` | 深远 shenyuan | Looking into a valley of receding ranges |
+| `distance` | View |
+| --- | --- |
+| `'level'` | Wide, calm water with low hills far away |
+| `'high'` | Looking up at a towering main peak |
+| `'deep'` | Looking into a valley of receding ranges |
 
-### Space for your content (留白)
+### Space for your content
 
 Mountains move, shrink and slope away from the space, and a soft mist keeps text readable.
 
@@ -136,27 +138,44 @@ createLandscape('#hero', { seed: 'home', season: 'auto', time: 'auto' }) // foll
 | --- | --- |
 | `season` | `spring`: plum blossom and fresh green washes. `summer`: the plain painting. `autumn`: ochre hills and turning leaves. `winter`: snow on the peaks and pines, bare trees, a grey sky. |
 | `weather` | `rain`: slanting streaks. `snow`: falling flakes. `fog`: mist drifting between the ranges. With `animate`, rain and snow fall. |
-| `time` | `dusk`: a red sun and a warm glow. `night`: a moon set off by a halo of wash (烘云托月). |
+| `time` | `dusk`: a red sun and a warm glow. `night`: a moon set off by a soft halo. |
 
 - **The landscape stays the same.** A seed keeps its mountains, trees and boat in every season, weather and time; only the atmosphere changes. A site using `season: 'auto'` keeps its painting all year.
 - `'auto'` reads the date when the painting is drawn, in the local time zone (northern-hemisphere seasons). Pass `date` to control it, for example when rendering on a server for visitors elsewhere. `seasonOf(date)` and `timeOf(date)` return what `'auto'` picks.
 - The SVG gets `data-season`, `data-weather` and `data-time` attributes for the options you set, so your page can match it (for example, light text at night).
 - With `space` at night, the veil behind your text shows as a pale cloud. That keeps dark text readable.
 
-### Seal (印章)
+### Birds, travellers and waterfalls
 
-Painters finish a work by pressing their red seal onto it. Give yours 1–4 characters: initials, a name, or a phrase in Chinese.
+Small living details, each off by default so existing paintings never change:
 
 ```js
-createLandscape('#hero', { seed: 'home', seal: '山水' })
+createLandscape('#hero', { seed: 'home', distance: 'high', birds: true, travellers: true, waterfall: true })
+```
+
+```html
+<kalpa-shan seed="home" distance="high" birds travellers waterfall animate></kalpa-shan>
+```
+
+- `birds`: a small flock high in the sky, clear of your text space. With `animate`, they flap and drift.
+- `travellers`: two figures walking along the nearest ridge, one with a staff.
+- `waterfall`: a cascade down the main peak of a `high` composition. With `animate`, the water flows. Other compositions have no main peak, so they ignore it.
+- **The landscape stays the same.** Turning a detail on adds it without moving any mountain, tree or boat, and each detail is independent of the others.
+
+### Seal
+
+Painters finish a work by pressing their red seal onto it. Give yours 1–4 characters, such as your initials.
+
+```js
+createLandscape('#hero', { seed: 'home', seal: 'KB' })
 createLandscape('#hero', { seal: { text: 'KB', style: 'relief', position: 'bottom-left' } })
 ```
 
 ```html
-<kalpa-shan seed="home" seal="山水" seal-style="relief"></kalpa-shan>
+<kalpa-shan seed="home" seal="KB" seal-style="relief"></kalpa-shan>
 ```
 
-- `style`: `'intaglio'` (白文, white characters cut into a red block, the default) or `'relief'` (朱文, red characters in a red frame).
+- `style`: `'intaglio'` (white characters cut into a red block, the default) or `'relief'` (red characters in a red frame).
 - `position`: `'bottom-right'` (default), `'bottom-left'`, `'top-right'` or `'top-left'`. If your text space covers that corner, the seal moves to a free one.
 - Characters read top to bottom, right column first, as on a real seal.
 - **One seal, every painting.** Its uneven edges and worn specks come from the seal's text, not the painting's seed, so your seal looks the same everywhere, like a real stamp.
@@ -187,7 +206,7 @@ const svg = renderSVG({ seed: post.slug, width: 1200, height: 630 }) // e.g. an 
 
 ## The name
 
-**Kalpa** (कल्प) is Sanskrit for "creation" and for an aeon. **Shan** (山) is Chinese for mountain. Asked how long a kalpa is, the Buddha answered that a mountain of rock, stroked with a silk cloth once every hundred years, would wear away sooner. [More in the repo README](https://github.com/barada02/kalpa-shan#about-the-name).
+**Kalpa** (कल्प) is Sanskrit for "creation" and for an aeon. **Shan** means mountain. Asked how long a kalpa is, the Buddha answered that a mountain of rock, stroked with a silk cloth once every hundred years, would wear away sooner. [More in the repo README](https://github.com/barada02/kalpa-shan#about-the-name).
 
 ## Credits
 

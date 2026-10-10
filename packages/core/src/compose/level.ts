@@ -1,10 +1,12 @@
 import { mistBand } from '../elements/mist'
+import { travellers } from '../elements/life'
 import { mountain } from '../elements/mountain'
 import { boat, water } from '../elements/water'
+import type { Pt } from '../stroke'
 import type { Ctx } from '../types'
 import { awaySide, farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 平远 Level distance: low horizon, wide water, low hills far away, a few trees on a near bank. */
+/** Level distance: low horizon, wide water, low hills far away, a few trees on a near bank. */
 export function level(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []
@@ -36,9 +38,11 @@ export function level(ctx: Ctx, s: Scene): string[] {
   }
 
   const side = awaySide(ctx)
+  let ground = null as Pt[] | null
   const x = side < 0 ? rng.range(0.02, 0.2) * W : rng.range(0.8, 0.98) * W
-  out.push(mountain(ctx, { x, y: H * 1.03, w: span * rng.range(0.4, 0.6), h: H * rng.range(0.2, 0.32), detail: s.D, trees: false }))
+  out.push(mountain(ctx, { x, y: H * 1.03, w: span * rng.range(0.4, 0.6), h: H * rng.range(0.2, 0.32), detail: s.D, trees: false, onRidge: (r) => (ground = r) }))
   if (s.trees) out.push(treeClump(ctx, x - side * span * rng.range(0.02, 0.1), H * 0.96, rng.int(2, 4), [0.12, 0.2]))
+  if (s.travellers && ground) out.push(travellers(ctx, ground))
 
   return out
 }

@@ -3,7 +3,7 @@ import type { Palette, PaletteName } from './types'
 export const palettes: Record<PaletteName, Required<Palette>> = {
   /** Classic ink on warm rice paper. */
   sumi: { paper: '#efe7d6', ink: '#1d1b18', wash: '#1d1b18' },
-  /** Blue-green landscape (青绿山水). */
+  /** Blue-green landscape. */
   qinglu: { paper: '#ece2c9', ink: '#1f2926', wash: '#2f6f62' },
   /** Pale ink on dark paper. */
   night: { paper: '#15171b', ink: '#e6dfcf', wash: '#9aa6b2' },

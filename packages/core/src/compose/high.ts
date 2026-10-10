@@ -1,10 +1,12 @@
 import { mistBand } from '../elements/mist'
+import { travellers, waterfall } from '../elements/life'
 import { mountain } from '../elements/mountain'
 import { boat, water } from '../elements/water'
+import type { Pt } from '../stroke'
 import type { Ctx } from '../types'
 import { awaySide, farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 高远 High distance: one towering main peak with lower flanking peaks, seen from below. */
+/** High distance: one towering main peak with lower flanking peaks, seen from below. */
 export function high(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []
@@ -16,6 +18,8 @@ export function high(ctx: Ctx, s: Scene): string[] {
   if (ctx.ceiling(mainX) !== -Infinity) mainX = placeX(ctx, 0.08, 0.92, 10)
   const mainH = H * rng.range(0.72, 0.88)
 
+  let peak = null as Pt[] | null
+  let ground = null as Pt[] | null
   let flanks = ''
   let dir: -1 | 1 = rng.chance(0.5) ? -1 : 1
   const flankCount = rng.int(1, 2)
@@ -33,7 +37,8 @@ export function high(ctx: Ctx, s: Scene): string[] {
   out.push(group(0.7, flanks))
   out.push(mistBand(ctx, H * 0.86, H * 0.04))
 
-  out.push(group(0.92, mountain(ctx, { x: mainX, y: H * 0.9, w: span * rng.range(0.24, 0.34), h: mainH, detail: s.D, trees: s.trees })))
+  out.push(group(0.92, mountain(ctx, { x: mainX, y: H * 0.9, w: span * rng.range(0.24, 0.34), h: mainH, detail: s.D, trees: s.trees, onRidge: (r) => (peak = r) })))
+  if (s.waterfall && peak) out.push(waterfall(ctx, peak, H * 0.9))
   // A belt of cloud around the main peak's waist.
   out.push(mistBand(ctx, H * 0.9 - mainH * rng.range(0.3, 0.5), H * 0.05, 0.8))
 
@@ -44,8 +49,9 @@ export function high(ctx: Ctx, s: Scene): string[] {
 
   const side = awaySide(ctx)
   const x = side < 0 ? rng.range(0, 0.15) * W : rng.range(0.85, 1) * W
-  out.push(mountain(ctx, { x, y: H * 1.03, w: span * rng.range(0.3, 0.45), h: H * rng.range(0.14, 0.24), detail: s.D, trees: false }))
+  out.push(mountain(ctx, { x, y: H * 1.03, w: span * rng.range(0.3, 0.45), h: H * rng.range(0.14, 0.24), detail: s.D, trees: false, onRidge: (r) => (ground = r) }))
   if (s.trees) out.push(treeClump(ctx, x - side * span * rng.range(0.02, 0.08), H * 0.97, rng.int(1, 3), [0.1, 0.17]))
+  if (s.travellers && ground) out.push(travellers(ctx, ground))
 
   return out
 }

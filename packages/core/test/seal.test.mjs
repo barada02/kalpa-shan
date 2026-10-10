@@ -14,7 +14,7 @@ test('no seal unless asked for', () => {
 
 test('a seal adds only itself: the painting is unchanged', () => {
   const without = normalizeIds(renderSVG(plain))
-  const withSeal = normalizeIds(renderSVG({ ...plain, seal: '山水' }))
+  const withSeal = normalizeIds(renderSVG({ ...plain, seal: 'KB' }))
   assert.equal(withSeal.replace(sealOf(withSeal), ''), without)
 })
 
@@ -28,8 +28,8 @@ test('one seal looks identical on every painting', () => {
 
 test('the seal moves out of the text space', () => {
   const corner = (svg) => Number(sealOf(svg).match(/rotate\([-\d.]+ ([\d.]+)/)[1])
-  const right = corner(renderSVG({ ...plain, seal: '山' }))
-  const moved = corner(renderSVG({ ...plain, seal: '山', space: { x: 0.6, y: 0.6, width: 0.38, height: 0.38 } }))
+  const right = corner(renderSVG({ ...plain, seal: 'K' }))
+  const moved = corner(renderSVG({ ...plain, seal: 'K', space: { x: 0.6, y: 0.6, width: 0.38, height: 0.38 } }))
   assert.ok(right > 1600 * 0.9, `expected bottom-right, got x=${right}`)
   assert.ok(moved < 1600 * 0.1, `expected bottom-left, got x=${moved}`)
 })

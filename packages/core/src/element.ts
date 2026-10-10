@@ -27,6 +27,9 @@ const ATTRIBUTES = [
   'season',
   'weather',
   'time',
+  'birds',
+  'travellers',
+  'waterfall',
   'seal',
   'seal-position',
   'seal-style',
@@ -143,6 +146,9 @@ export class KalpaShanElement extends Base {
       season: (this.getAttribute('season') as LandscapeOptions['season']) ?? undefined,
       weather: (this.getAttribute('weather') as LandscapeOptions['weather']) ?? undefined,
       time: (this.getAttribute('time') as LandscapeOptions['time']) ?? undefined,
+      birds: flag(this, 'birds'),
+      travellers: flag(this, 'travellers'),
+      waterfall: flag(this, 'waterfall'),
       seal: this.readSeal(),
     }
     // Drop unset keys so the library's defaults apply.

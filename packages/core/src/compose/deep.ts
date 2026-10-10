@@ -1,16 +1,20 @@
 import { mistBand } from '../elements/mist'
+import { travellers } from '../elements/life'
 import { mountain } from '../elements/mountain'
 import { boat, water } from '../elements/water'
+import type { Pt } from '../stroke'
 import type { Ctx } from '../types'
 import { farWashes, group, placeX, treeClump, type Scene } from './shared'
 
-/** 深远 Deep distance: overlapping ranges alternating left and right, receding up into a valley. */
+/** Deep distance: overlapping ranges alternating left and right, receding up into a valley. */
 export function deep(ctx: Ctx, s: Scene): string[] {
   const { rng, W, H, span } = ctx
   const out: string[] = []
   const rows = 4 + Math.round(s.D * 3)
   const waterRow = Math.floor(rows / 2) - 1
   let side: -1 | 1 = rng.chance(0.5) ? -1 : 1
+  // The nearest row's ridge, for travellers.
+  let ground = null as Pt[] | null
 
   out.push(group(0.35, farWashes(ctx, rng.int(3, 5), [0.4, 0.46], [0.1, 0.25], [0.2, 0.4])))
 
@@ -22,7 +26,7 @@ export function deep(ctx: Ctx, s: Scene): string[] {
     const x = side < 0 ? rng.range(0, 0.35) * W : rng.range(0.65, 1) * W
     const detail = s.D * (0.2 + 0.8 * t)
 
-    let row = mountain(ctx, { x, y, w, h, detail, trees: s.trees && t > 0.3 })
+    let row = mountain(ctx, { x, y, w, h, detail, trees: s.trees && t > 0.3, onRidge: (p) => (ground = p) })
     // Sometimes a smaller answering hill on the other bank.
     if (rng.chance(0.35 + s.D * 0.3)) {
       const ox = side < 0 ? rng.range(0.7, 1) * W : rng.range(0, 0.3) * W
@@ -41,5 +45,6 @@ export function deep(ctx: Ctx, s: Scene): string[] {
     side = side === -1 ? 1 : -1
   }
 
+  if (s.travellers && ground) out.push(travellers(ctx, ground))
   return out
 }

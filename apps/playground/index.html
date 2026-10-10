@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalpa Shan playground</title>
-    <meta name="description" content="Procedurally generated Chinese ink landscapes (山水) for your website. Pick a seed and get a painting." />
+    <meta name="description" content="Procedurally generated Chinese ink landscapes for your website. Pick a seed and get a painting." />
     <meta property="og:title" content="Kalpa Shan: ink landscapes for your website" />
-    <meta property="og:description" content="Procedurally generated Chinese ink landscapes (山水). Seeded, animated, dependency-free SVG." />
+    <meta property="og:description" content="Procedurally generated Chinese ink landscapes. Seeded, animated, dependency-free SVG." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://barada02.github.io/kalpa-shan/" />
     <meta property="og:image" content="https://raw.githubusercontent.com/barada02/kalpa-shan/main/docs/preview.png" />
@@ -14,7 +14,7 @@
   </head>
   <body>
     <header class="top">
-      <h1>Kalpa Shan <span class="zh">山水</span></h1>
+      <h1>Kalpa Shan</h1>
       <nav class="nav">
         <a href="./" aria-current="page">Playground</a>
         <a href="./element.html">Web component</a>
@@ -50,9 +50,9 @@
           <span>Distance</span>
           <select id="distance" name="distance">
             <option value="auto">auto (by seed)</option>
-            <option value="level">平远 level</option>
-            <option value="high">高远 high</option>
-            <option value="deep">深远 deep</option>
+            <option value="level">level</option>
+            <option value="high">high</option>
+            <option value="deep">deep</option>
           </select>
         </label>
 
@@ -71,9 +71,9 @@
           <span>Season</span>
           <select id="season" name="season">
             <option value="summer">summer</option>
-            <option value="spring">spring 春</option>
-            <option value="autumn">autumn 秋</option>
-            <option value="winter">winter 冬</option>
+            <option value="spring">spring</option>
+            <option value="autumn">autumn</option>
+            <option value="winter">winter</option>
             <option value="auto">auto (today)</option>
           </select>
         </label>
@@ -82,9 +82,9 @@
           <span>Weather</span>
           <select id="weather" name="weather">
             <option value="clear">clear</option>
-            <option value="rain">rain 雨</option>
-            <option value="snow">snow 雪</option>
-            <option value="fog">fog 雾</option>
+            <option value="rain">rain</option>
+            <option value="snow">snow</option>
+            <option value="fog">fog</option>
           </select>
         </label>
 
@@ -92,19 +92,19 @@
           <span>Time</span>
           <select id="time" name="time">
             <option value="day">day</option>
-            <option value="dusk">dusk 暮</option>
-            <option value="night">night 夜</option>
+            <option value="dusk">dusk</option>
+            <option value="night">night</option>
             <option value="auto">auto (now)</option>
           </select>
         </label>
 
         <label class="field">
-          <span>Seal 印章</span>
+          <span>Seal</span>
           <div class="row">
-            <input id="seal" name="seal" type="text" maxlength="4" placeholder="e.g. 山水, KB" spellcheck="false" />
+            <input id="seal" name="seal" type="text" maxlength="4" placeholder="initials, e.g. KB" spellcheck="false" />
             <select id="sealStyle" name="sealStyle" title="Seal style">
-              <option value="intaglio">白文</option>
-              <option value="relief">朱文</option>
+              <option value="intaglio">intaglio</option>
+              <option value="relief">relief</option>
             </select>
           </div>
         </label>
@@ -129,6 +129,9 @@
           <label><input id="trees" type="checkbox" checked /> Trees</label>
           <label><input id="water" type="checkbox" checked /> Water</label>
           <label><input id="grain" type="checkbox" checked /> Grain</label>
+          <label><input id="birds" type="checkbox" /> Birds</label>
+          <label><input id="travellers" type="checkbox" /> Travellers</label>
+          <label><input id="waterfall" type="checkbox" /> Waterfall</label>
           <label><input id="showText" type="checkbox" checked /> Sample text</label>
           <label><input id="animate" type="checkbox" checked /> Animate</label>
         </fieldset>

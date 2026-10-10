@@ -14,10 +14,11 @@ export interface Palette {
 export type PaletteName = 'sumi' | 'qinglu' | 'night' | 'mist'
 
 /**
- * Guo Xi's three distances (三远):
- * - `level` / `pingyuan` 平远 — a wide, calm view across water to low distant hills
- * - `high` / `gaoyuan` 高远 — looking up at a towering main peak
- * - `deep` / `shenyuan` 深远 — looking into a valley of receding, overlapping ranges
+ * Guo Xi's three distances:
+ * - `level` — a wide, calm view across water to low distant hills
+ * - `high` — looking up at a towering main peak
+ * - `deep` — looking into a valley of receding, overlapping ranges
+ * (Older romanized aliases are still accepted.)
  */
 export type Distance = 'level' | 'high' | 'deep' | 'pingyuan' | 'gaoyuan' | 'shenyuan'
 
@@ -32,13 +33,13 @@ export type TimeOfDay = 'day' | 'dusk' | 'night'
 
 export type SealCorner = 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
 
-/** A red seal (印章) stamped in a corner. */
+/** A red seal stamped in a corner. */
 export interface SealOptions {
-  /** 1–4 characters, e.g. initials or a name in Chinese. Read top to bottom, right column first. */
+  /** 1–4 characters, e.g. initials. Read top to bottom, right column first. */
   text: string
   /** Default `'bottom-right'`. Moves to another corner if the text space is there. */
   position?: SealCorner
-  /** `'intaglio'` (白文): white characters on red. `'relief'` (朱文): red characters in a red frame. Default `'intaglio'`. */
+  /** `'intaglio'`: white characters on red. `'relief'`: red characters in a red frame. Default `'intaglio'`. */
   style?: 'intaglio' | 'relief'
 }
 
@@ -66,7 +67,7 @@ export interface LandscapeOptions {
   palette?: PaletteName | Palette
   /** Composition, after Guo Xi's three distances. Default `'auto'` (chosen by the seed). */
   distance?: Distance | 'auto'
-  /** Keep a region free of mountains for text (留白). Default `'none'`. */
+  /** Keep a region free of mountains for text. Default `'none'`. */
   space?: SpacePreset | SpaceBox
   /** Internal drawing width (viewBox units). `createLandscape` derives it from the element's aspect ratio. Default 1600. */
   width?: number
@@ -93,7 +94,13 @@ export interface LandscapeOptions {
   time?: TimeOfDay | 'auto'
   /** The moment `'auto'` season and time follow, in its local time zone. Default: now. */
   date?: Date | string | number
-  /** A red seal (印章) in a corner: its text, or full options. The same seal looks identical on every painting. */
+  /** A small flock of birds in the sky. Default false. */
+  birds?: boolean
+  /** Two travellers walking along the foreground ridge. Default false. */
+  travellers?: boolean
+  /** A waterfall down the main peak (on `high` compositions). Default false. */
+  waterfall?: boolean
+  /** A red seal in a corner: its text, or full options. The same seal looks identical on every painting. */
   seal?: string | SealOptions
   /**
    * Animate the painting (off by default). `true` enables reveal + ambient motion.
@@ -132,4 +139,6 @@ export interface Ctx {
   fx: Rng
   /** Snow, moonlight: unpainted silk on light paper, the ink colour on dark paper. */
   light: string
+  /** A named rng stream derived from the seed, for optional details that must not disturb `rng`. */
+  stream: (name: string) => Rng
 }
