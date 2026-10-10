@@ -30,6 +30,9 @@ const densityOut = $<HTMLOutputElement>('densityOut')
 const trees = $<HTMLInputElement>('trees')
 const water = $<HTMLInputElement>('water')
 const grain = $<HTMLInputElement>('grain')
+const birds = $<HTMLInputElement>('birds')
+const travellers = $<HTMLInputElement>('travellers')
+const waterfall = $<HTMLInputElement>('waterfall')
 const showText = $<HTMLInputElement>('showText')
 const animate = $<HTMLInputElement>('animate')
 const pauseBtn = $<HTMLButtonElement>('pause')
@@ -53,6 +56,9 @@ const DEFAULTS: LandscapeOptions = {
   trees: true,
   water: true,
   grain: true,
+  birds: false,
+  travellers: false,
+  waterfall: false,
   animate: false,
 }
 
@@ -73,6 +79,9 @@ const read = (): LandscapeOptions => ({
   trees: trees.checked,
   water: water.checked,
   grain: grain.checked,
+  birds: birds.checked,
+  travellers: travellers.checked,
+  waterfall: waterfall.checked,
   animate: animate.checked,
 })
 
