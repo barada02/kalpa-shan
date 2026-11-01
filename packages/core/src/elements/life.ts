@@ -1,11 +1,10 @@
 import { drift, fadeIn } from '../anim'
-import { isDark } from '../atmosphere'
 import { brush, type Pt } from '../stroke'
 import type { Ctx } from '../types'
 import { circle, fillPath } from './svg'
 
 /*
- * Living details: birds, travellers, waterfalls. Each draws from its own rng stream
+ * Living details: birds and travellers. Each draws from its own rng stream
  * (ctx.stream), so turning one on adds it without moving anything else in the painting.
  */
 
@@ -86,76 +85,4 @@ export function travellers(ctx: Ctx, ridge: Pt[]): string {
   const lead = figure(ctx, x, y + s * 0.05, s, dir, true, ch)
   const follow = figure(ctx, fx, fy + s * 0.05, s * 0.9, dir, false, ch + 7)
   return fadeIn(ctx, follow + lead, 0.3, 0.8)
-}
-
-/**
- * A waterfall: a short, narrow fall of pale water dropping from a cleft below the summit.
- * Its sides are only hinted with broken rock strokes, and its foot vanishes into mist.
- */
-export function waterfall(ctx: Ctx, ridge: Pt[], base: number): string {
-  const { noise, palette, H, span } = ctx
-  const rng = ctx.stream('waterfall')
-  const n = ridge.length
-  const heights = ridge.map(([, y]) => base - y)
-  const top = Math.max(...heights)
-
-  // A tall stretch of the face near the summit.
-  const spots: number[] = []
-  for (let i = Math.floor(n * 0.3); i < Math.ceil(n * 0.7); i++) if (heights[i] > top * 0.65) spots.push(i)
-  if (!spots.length) return ''
-  const i = spots[Math.floor(rng.next() * spots.length)]
-
-  const x = ridge[i][0]
-  const y0 = ridge[i][1] + heights[i] * rng.range(0.18, 0.28)
-  const y1 = Math.min(y0 + heights[i] * rng.range(0.3, 0.42), base - H * 0.05)
-  const w = span * rng.range(0.003, 0.005)
-  const ch = rng.range(0, 1000)
-  if (y1 - y0 < H * 0.05) return ''
-
-  // The fall: narrow at the lip, widening a little as it drops.
-  const steps = 10
-  const left: Pt[] = []
-  const right: Pt[] = []
-  for (let k = 0; k <= steps; k++) {
-    const t = k / steps
-    const y = y0 + (y1 - y0) * t
-    const spread = w * (0.5 + 0.9 * t)
-    const sway = (noise(t * 2, ch) - 0.5) * w * 1.2
-    left.push([x + sway - spread, y])
-    right.push([x + sway + spread, y])
-  }
-  let out = `<path d="M${[...left, ...[...right].reverse()].map(([px, py]) => `${r1(px)} ${r1(py)}`).join('L')}Z" fill="${ctx.light}"${isDark(palette.paper) ? ' fill-opacity="0.6"' : ''}/>`
-
-  // Broken rock strokes beside the water, never a continuous frame.
-  for (const [side, sign] of [[left, -1], [right, 1]] as const) {
-    for (let k = 0; k < steps - 1; k += 2) {
-      if (!rng.chance(0.55)) continue
-      const seg: Pt[] = side.slice(k, k + 3).map(([px, py]) => [px + sign * w * 0.3, py])
-      out += fillPath(brush(seg, { width: w * 0.5, noise, channel: ch + k + (sign > 0 ? 50 : 0) }), palette.ink, rng.range(0.35, 0.6))
-    }
-  }
-
-  // The cleft it pours from.
-  out += fillPath(brush([[x - w * 2.5, y0 - w * 1.5], [x, y0 + w * 0.5], [x + w * 2.5, y0 - w * 1.5]], { width: w * 0.6, noise, channel: ch + 99 }), palette.ink, 0.6)
-
-  // Faint falling lines, mostly unbroken; with motion on they flow downward.
-  const len = y1 - y0
-  const dash = r1(len * 0.3)
-  const gap = r1(len * 0.06)
-  const streaks = rng.int(2, 3)
-  for (let k = 0; k < streaks; k++) {
-    const u = (k + 1) / (streaks + 1)
-    const d = left.map(([lx, ly], m) => `${r1(lx + (right[m][0] - lx) * u)} ${r1(ly)}`).join('L')
-    const offset = r1(rng.range(0, dash + gap))
-    // Drawn from the rng even without motion, so turning motion on never changes the painting.
-    const dur = r1(rng.range(1.5, 2.5))
-    const flow = ctx.motion
-      ? `<animate attributeName="stroke-dashoffset" from="${offset}" to="${r1(offset - dash - gap)}" dur="${dur}s" repeatCount="indefinite"/>`
-      : ''
-    out += `<path d="M${d}" fill="none" stroke="${palette.ink}" stroke-opacity="0.18" stroke-width="${r1(w * 0.18)}" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${offset}">${flow}</path>`
-  }
-
-  // Its foot disappears into rising spray.
-  out += `<ellipse cx="${r1(x)}" cy="${r1(y1)}" rx="${r1(w * 9)}" ry="${r1(len * 0.22)}" fill="url(#${ctx.ids.fog})"/>`
-  return fadeIn(ctx, out, 0.4, 1.2)
 }

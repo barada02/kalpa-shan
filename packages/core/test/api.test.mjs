@@ -31,9 +31,22 @@ test('space presets resolve to boxes inside the drawing', () => {
 })
 
 test('the label is escaped and the distance is reported', () => {
-  const svg = esm.renderSVG({ seed: 1, distance: 'high', label: 'A "quoted" title' })
-  assert.match(svg, /aria-label="A &quot;quoted&quot; title"/)
+  const svg = esm.renderSVG({ seed: 1, distance: 'high', label: 'Fish & "Chips" <yummy>' })
+  assert.match(svg, /aria-label="Fish &amp; &quot;Chips&quot; &lt;yummy&gt;"/)
   assert.match(svg, /data-distance="high"/)
+})
+
+test('a non-numeric density falls back to the default', () => {
+  const options = { seed: 'density', distance: 'deep' }
+  assert.equal(
+    normalizeIds(esm.renderSVG({ ...options, density: NaN })),
+    normalizeIds(esm.renderSVG({ ...options, density: 0.6 })),
+  )
+})
+
+test('reveal placeholders cannot leak into user text', () => {
+  const svg = esm.renderSVG({ seed: 'token', distance: 'high', label: '§0§ §1§', animate: true })
+  assert.match(svg, /aria-label="§0§ §1§"/)
 })
 
 // The CDN bundle carries the whole library. Raise this only with a reason (see CLAUDE.md).

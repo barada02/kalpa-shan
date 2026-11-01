@@ -29,7 +29,6 @@ const ATTRIBUTES = [
   'time',
   'birds',
   'travellers',
-  'waterfall',
   'seal',
   'seal-position',
   'seal-style',
@@ -125,7 +124,9 @@ export class KalpaShanElement extends Base {
   private readOptions(): LandscapeOptions {
     const num = (name: string) => {
       const v = this.getAttribute(name)
-      return v == null || v === '' ? undefined : Number(v)
+      if (v == null || v === '') return undefined
+      const n = Number(v)
+      return Number.isNaN(n) ? undefined : n
     }
 
     let animate: boolean | AnimateOptions | undefined = flag(this, 'animate')
@@ -148,7 +149,6 @@ export class KalpaShanElement extends Base {
       time: (this.getAttribute('time') as LandscapeOptions['time']) ?? undefined,
       birds: flag(this, 'birds'),
       travellers: flag(this, 'travellers'),
-      waterfall: flag(this, 'waterfall'),
       seal: this.readSeal(),
     }
     // Drop unset keys so the library's defaults apply.

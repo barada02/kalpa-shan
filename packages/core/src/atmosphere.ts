@@ -29,8 +29,16 @@ export function timeOf(date: Date): TimeOfDay {
 }
 
 export function resolveAtmosphere(o: LandscapeOptions): Atmosphere {
-  // Only read the clock when asked to, so renders stay pure by default.
-  const date = () => (o.date == null ? new Date() : new Date(o.date))
+  // Only read the clock when asked to, so renders stay pure by default. Read it once,
+  // and treat an unparseable date like no date at all.
+  let now: Date | null = null
+  const date = () => {
+    if (!now) {
+      const d = o.date == null ? new Date() : new Date(o.date)
+      now = Number.isNaN(d.getTime()) ? new Date() : d
+    }
+    return now
+  }
   return {
     season: o.season === 'auto' ? seasonOf(date()) : (o.season ?? 'summer'),
     weather: o.weather ?? 'clear',

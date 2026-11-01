@@ -64,3 +64,9 @@ test("'auto' follows the date", () => {
 test('the plain painting has no atmosphere attributes', () => {
   assert.doesNotMatch(renderSVG(base), /data-(season|weather|time)/)
 })
+
+test("an invalid date falls back to now for 'auto'", () => {
+  const svg = renderSVG({ ...base, season: 'auto', time: 'auto', date: 'not a date' })
+  assert.match(svg, new RegExp(`data-season="${seasonOf(new Date())}"`))
+  assert.match(svg, new RegExp(`data-time="${timeOf(new Date())}"`))
+})

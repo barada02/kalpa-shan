@@ -32,7 +32,6 @@ const water = $<HTMLInputElement>('water')
 const grain = $<HTMLInputElement>('grain')
 const birds = $<HTMLInputElement>('birds')
 const travellers = $<HTMLInputElement>('travellers')
-const waterfall = $<HTMLInputElement>('waterfall')
 const showText = $<HTMLInputElement>('showText')
 const animate = $<HTMLInputElement>('animate')
 const pauseBtn = $<HTMLButtonElement>('pause')
@@ -58,7 +57,6 @@ const DEFAULTS: LandscapeOptions = {
   grain: true,
   birds: false,
   travellers: false,
-  waterfall: false,
   animate: false,
 }
 
@@ -81,7 +79,6 @@ const read = (): LandscapeOptions => ({
   grain: grain.checked,
   birds: birds.checked,
   travellers: travellers.checked,
-  waterfall: waterfall.checked,
   animate: animate.checked,
 })
 

@@ -47,7 +47,7 @@ Content inside the element is placed in the empty space automatically. Size the 
 | `space` | `left` · `right` · `center` · `top` · `none`, or `"x y width height"` as fractions | `none` |
 | `density` | `0` to `1` | `0.6` |
 | `trees`, `water`, `grain` | set to `"false"` to turn off | on |
-| `birds`, `travellers`, `waterfall` | present to turn on | off |
+| `birds`, `travellers` | present to turn on | off |
 | `animate` | present to animate | off |
 | `duration` | reveal length in seconds | `6` |
 | `season` | `spring` · `summer` · `autumn` · `winter` · `auto` | `summer` |
@@ -96,7 +96,7 @@ The drawing fills the element and matches its aspect ratio (so `space` lines up 
 | `space` | `'none' \| 'left' \| 'right' \| 'center' \| 'top' \| { x, y, width, height }` | `'none'` |
 | `density` | `0`–`1` | `0.6` |
 | `trees` / `water` / `grain` | `boolean` | `true` |
-| `birds` / `travellers` / `waterfall` | `boolean` | `false` |
+| `birds` / `travellers` | `boolean` | `false` |
 | `animate` | `boolean \| { reveal?, motion?, duration? }` | `false` |
 | `width` / `height` | viewBox size; set only for a fixed size | fit to element |
 | `season` | `'spring' \| 'summer' \| 'autumn' \| 'winter' \| 'auto'` | `'summer'` |
@@ -145,21 +145,20 @@ createLandscape('#hero', { seed: 'home', season: 'auto', time: 'auto' }) // foll
 - The SVG gets `data-season`, `data-weather` and `data-time` attributes for the options you set, so your page can match it (for example, light text at night).
 - With `space` at night, the veil behind your text shows as a pale cloud. That keeps dark text readable.
 
-### Birds, travellers and waterfalls
+### Birds and travellers
 
 Small living details, each off by default so existing paintings never change:
 
 ```js
-createLandscape('#hero', { seed: 'home', distance: 'high', birds: true, travellers: true, waterfall: true })
+createLandscape('#hero', { seed: 'home', distance: 'high', birds: true, travellers: true })
 ```
 
 ```html
-<kalpa-shan seed="home" distance="high" birds travellers waterfall animate></kalpa-shan>
+<kalpa-shan seed="home" distance="high" birds travellers animate></kalpa-shan>
 ```
 
 - `birds`: a small flock high in the sky, clear of your text space. With `animate`, they flap and drift.
 - `travellers`: two figures walking along the nearest ridge, one with a staff.
-- `waterfall`: a cascade down the main peak of a `high` composition. With `animate`, the water flows. Other compositions have no main peak, so they ignore it.
 - **The landscape stays the same.** Turning a detail on adds it without moving any mountain, tree or boat, and each detail is independent of the others.
 
 ### Seal

@@ -13,6 +13,9 @@ let instanceCount = 0
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
 const r1 = (n: number) => Math.round(n * 10) / 10
+/** Escape text for an XML attribute, so custom labels keep the SVG valid. */
+const escapeAttr = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 /**
  * Render a complete landscape to an SVG string. Pure apart from unique element ids,
@@ -22,7 +25,8 @@ export function renderSVG(options: LandscapeOptions = {}): string {
   const seed = options.seed ?? randomSeed()
   const W = options.width ?? 1600
   const H = options.height ?? 600
-  const D = clamp01(options.density ?? 0.6)
+  const density = options.density ?? 0.6
+  const D = clamp01(Number.isNaN(density) ? 0.6 : density)
   const showGrain = options.grain ?? true
   const label = options.label ?? 'Generated Chinese ink landscape'
 
@@ -39,7 +43,7 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     palette,
     ids: { mist: `${uid}m`, grain: `${uid}g`, space: `${uid}s`, fog: `${uid}f`, air: `${uid}a` },
     uid: () => `${uid}c${(idCount++).toString(36)}`,
-    tl: anim.reveal ? new Timeline() : null,
+    tl: anim.reveal ? new Timeline(uid) : null,
     motion: anim.motion,
     W,
     H,
@@ -60,7 +64,6 @@ export function renderSVG(options: LandscapeOptions = {}): string {
     trees: options.trees ?? true,
     water: options.water ?? true,
     travellers: options.travellers ?? false,
-    waterfall: options.waterfall ?? false,
   })
   if (options.birds) layers.push(birds(ctx))
   if (atmos.weather === 'fog') addFog(ctx, layers, airRng)
@@ -111,7 +114,7 @@ export function renderSVG(options: LandscapeOptions = {}): string {
 
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" height="100%" ` +
-    `preserveAspectRatio="xMidYMid slice" role="img" aria-label="${label.replace(/"/g, '&quot;')}" ` +
+    `preserveAspectRatio="xMidYMid slice" role="img" aria-label="${escapeAttr(label)}" ` +
     `data-distance="${distance}"` +
     // Only when asked for, so default output is unchanged; tells pages what 'auto' chose.
     (options.season ? ` data-season="${atmos.season}"` : '') +

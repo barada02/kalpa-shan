@@ -24,7 +24,7 @@ Give it a seed, such as a page slug or a post title, and you get the same painti
 - **Three compositions:** level, high and deep
 - **Animation:** a brush-stroke reveal, drifting mist and a drifting boat. Respects `prefers-reduced-motion`.
 - **Seasons, weather, time of day:** plum blossom, autumn colour, snow, rain, fog, a red sun at dusk, a moon at night. `auto` follows the visitor's date and clock, and the landscape itself stays the same all year.
-- **Living details:** birds in flight, travellers on a ridge, a waterfall down the main peak
+- **Living details:** birds in flight and travellers on a ridge
 - **Your seal:** a red stamp with your initials or name, the same on every painting
 - **Palettes:** ink, blue-green, night, mist, or your brand colours via CSS variables
 - **Fits any shape:** banner, card or phone, and redraws on resize

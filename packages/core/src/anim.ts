@@ -21,10 +21,17 @@ export function resolveAnimate(a: boolean | AnimateOptions | undefined): Resolve
 /**
  * Collects reveal start times in abstract units while the scene is built (back to front,
  * i.e. painting order), then rescales them so the whole reveal fits `duration` seconds.
+ * Placeholders carry the render's unique tag, so user text (a label, a seal) can never
+ * contain one by accident.
  */
 export class Timeline {
   private ticks: number[] = []
   private cursor = 0
+  private tag: string
+
+  constructor(tag = '') {
+    this.tag = tag
+  }
 
   get count(): number {
     return this.ticks.length
@@ -34,12 +41,12 @@ export class Timeline {
   at(advance: number): string {
     this.ticks.push(this.cursor)
     this.cursor += advance
-    return `§${this.ticks.length - 1}§`
+    return `§${this.tag}${this.ticks.length - 1}§`
   }
 
   resolve(svg: string, duration: number): string {
     const scale = this.cursor > 0 ? duration / this.cursor : 0
-    return svg.replace(/§(\d+)§/g, (_, i) => (this.ticks[Number(i)] * scale).toFixed(2))
+    return svg.replace(new RegExp(`§${this.tag}(\\d+)§`, 'g'), (_, i) => (this.ticks[Number(i)] * scale).toFixed(2))
   }
 }
 

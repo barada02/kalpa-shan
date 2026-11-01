@@ -1,5 +1,5 @@
 import { mistBand } from '../elements/mist'
-import { travellers, waterfall } from '../elements/life'
+import { travellers } from '../elements/life'
 import { mountain } from '../elements/mountain'
 import { boat, water } from '../elements/water'
 import type { Pt } from '../stroke'
@@ -18,7 +18,6 @@ export function high(ctx: Ctx, s: Scene): string[] {
   if (ctx.ceiling(mainX) !== -Infinity) mainX = placeX(ctx, 0.08, 0.92, 10)
   const mainH = H * rng.range(0.72, 0.88)
 
-  let peak = null as Pt[] | null
   let ground = null as Pt[] | null
   let flanks = ''
   let dir: -1 | 1 = rng.chance(0.5) ? -1 : 1
@@ -37,8 +36,7 @@ export function high(ctx: Ctx, s: Scene): string[] {
   out.push(group(0.7, flanks))
   out.push(mistBand(ctx, H * 0.86, H * 0.04))
 
-  out.push(group(0.92, mountain(ctx, { x: mainX, y: H * 0.9, w: span * rng.range(0.24, 0.34), h: mainH, detail: s.D, trees: s.trees, onRidge: (r) => (peak = r) })))
-  if (s.waterfall && peak) out.push(waterfall(ctx, peak, H * 0.9))
+  out.push(group(0.92, mountain(ctx, { x: mainX, y: H * 0.9, w: span * rng.range(0.24, 0.34), h: mainH, detail: s.D, trees: s.trees })))
   // A belt of cloud around the main peak's waist.
   out.push(mistBand(ctx, H * 0.9 - mainH * rng.range(0.3, 0.5), H * 0.05, 0.8))
 

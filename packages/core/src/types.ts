@@ -98,8 +98,6 @@ export interface LandscapeOptions {
   birds?: boolean
   /** Two travellers walking along the foreground ridge. Default false. */
   travellers?: boolean
-  /** A waterfall down the main peak (on `high` compositions). Default false. */
-  waterfall?: boolean
   /** A red seal in a corner: its text, or full options. The same seal looks identical on every painting. */
   seal?: string | SealOptions
   /**

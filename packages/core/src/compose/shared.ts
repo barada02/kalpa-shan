@@ -9,7 +9,6 @@ export interface Scene {
   trees: boolean
   water: boolean
   travellers: boolean
-  waterfall: boolean
 }
 
 type Range = [number, number]
